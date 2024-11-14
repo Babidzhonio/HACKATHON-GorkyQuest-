@@ -10,6 +10,8 @@ import android.widget.Toast;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,6 +20,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.io.IOException;
 
 public class FormForRegister extends AppCompatActivity {
     private EditText etName, etEmail, etPassword;
@@ -52,36 +56,70 @@ public class FormForRegister extends AppCompatActivity {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
+        // Проверка на пустые поля
         if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Все поля должны быть заполнены", Toast.LENGTH_SHORT).show();
+            showToast("Все поля должны быть заполнены");
             return;
         }
 
-        ApiServise apiService = RetrofitClient.getClient().create(ApiServise.class);
+        // Создание запроса регистрации
         Users registerRequest = new Users(name, email, password);
+        ApiServise apiService = RetrofitClient.getClient().create(ApiServise.class);
 
-        Call<RegisterResponseJSON> call = apiService.registerUser(registerRequest);
-        call.enqueue(new Callback<RegisterResponseJSON>() {
-            @Override
-            public void onResponse(Call<RegisterResponseJSON> call, Response<RegisterResponseJSON> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    if (response.body().isSuccess()) {
-                        Toast.makeText(FormForRegister.this, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(FormForRegister.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(FormForRegister.this, "Регистрация не прошла", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RegisterResponseJSON> call, Throwable t) {
-                Log.e("RegisterActivity", "API call failed: " + t.getMessage());
-                Toast.makeText(FormForRegister.this, "An error occurred", Toast.LENGTH_SHORT).show();
-            }
-        });
+        Call<ResponseBody> call = apiService.registerUser(registerRequest);
+        call.enqueue(new RegisterCallback());
     }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private class RegisterCallback implements Callback<ResponseBody> {
+        @Override
+        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            if (response.isSuccessful() && response.body() != null) {
+                handleSuccessResponse(response);
+            } else {
+                handleErrorResponse(response);
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ResponseBody> call, Throwable t) {
+            Log.e("RegisterActivity", "API call failed: " + t.getMessage());
+            showToast("Произошла ошибка при подключении к серверу");
+        }
+
+        private void handleSuccessResponse(Response<ResponseBody> response) {
+            try {
+                // Получаем JSON-ответ как строку и выводим его
+                String jsonResponse = response.body().string();
+                showToast(jsonResponse);
+            } catch (IOException e) {
+                Log.e("RegisterActivity", "Error reading response", e);
+                showToast("Ошибка чтения ответа");
+            }
+        }
+
+        private void handleErrorResponse(Response<ResponseBody> response) {
+            try {
+                // Обрабатываем ошибку и получаем тело ошибки
+                if (response.errorBody() != null) {
+                    String errorResponse = response.errorBody().string();
+                    showToast(errorResponse);
+                } else {
+                    showToast("Неизвестная ошибка");
+                }
+            } catch (IOException e) {
+                Log.e("RegisterActivity", "Error reading error response", e);
+                showToast("Ошибка чтения ответа ошибки");
+            }
+        }
+    }
+
+
+
+
 
 // кнопка вернуться назад
     public void GoMainForm(View v){

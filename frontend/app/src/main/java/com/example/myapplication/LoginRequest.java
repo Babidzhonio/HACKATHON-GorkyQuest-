@@ -1,14 +1,11 @@
 package com.example.myapplication;
 
-public class Users {
-    private String userName;
+public class LoginRequest {
     private String email;
     private String password;
 
-    public Users(String username, String email, String password) {
-        this.userName = username;
+    public LoginRequest(String email, String password) {
         this.email = email;
         this.password = password;
     }
-
 }
