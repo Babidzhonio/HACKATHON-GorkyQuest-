@@ -7,22 +7,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "users",schema = "gorkyquest")
+@Table(name = "users",schema = "gorky_quest")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @Column(name = "username",nullable = false)
+    @Column(name = "name",nullable = false)
     private String UserName;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password_hash",nullable = false)
+    @Column(name = "password",nullable = false)
     private String password;
+
+    @Column(name = "tokens", nullable = true)
+    private Integer tokens;
 
 }
