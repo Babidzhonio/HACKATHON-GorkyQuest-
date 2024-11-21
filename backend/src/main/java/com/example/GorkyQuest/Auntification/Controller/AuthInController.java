@@ -1,8 +1,8 @@
-package com.example.GorkyQuest.Controller;
+package com.example.GorkyQuest.Auntification.Controller;
 
 import com.example.GorkyQuest.Exception.UserAuthorizationException;
-import com.example.GorkyQuest.Model.User;
-import com.example.GorkyQuest.Service.AuthInService;
+import com.example.GorkyQuest.Auntification.Model.User;
+import com.example.GorkyQuest.Auntification.Service.AuthInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,6 +1,6 @@
-package com.example.GorkyQuest.Service;
+package com.example.GorkyQuest.Auntification.Service;
 
-import com.example.GorkyQuest.Repository.UserRepository;
+import com.example.GorkyQuest.Auntification.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

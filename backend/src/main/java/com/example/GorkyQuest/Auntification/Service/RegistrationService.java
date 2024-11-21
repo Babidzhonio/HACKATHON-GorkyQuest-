@@ -1,16 +1,12 @@
-package com.example.GorkyQuest.Service;
+package com.example.GorkyQuest.Auntification.Service;
 
 import com.example.GorkyQuest.Exception.UserRegistrationException;
-import com.example.GorkyQuest.Model.User;
-import com.example.GorkyQuest.Repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.example.GorkyQuest.Auntification.Model.User;
+import com.example.GorkyQuest.Auntification.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Pattern;
-
-import static com.mysql.cj.conf.PropertyKey.logger;
 
 @Service
 public class RegistrationService {

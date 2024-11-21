@@ -1,8 +1,9 @@
-package com.example.GorkyQuest.Service;
+package com.example.GorkyQuest.Auntification.Service;
 
 import com.example.GorkyQuest.Exception.UserAuthorizationException;
-import com.example.GorkyQuest.Model.User;
-import com.example.GorkyQuest.Repository.UserRepository;
+import com.example.GorkyQuest.Auntification.Model.User;
+import com.example.GorkyQuest.Auntification.Repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

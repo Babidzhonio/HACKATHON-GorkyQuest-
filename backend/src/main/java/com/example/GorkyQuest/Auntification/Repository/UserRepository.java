@@ -1,5 +1,5 @@
-package com.example.GorkyQuest.Repository;
-import com.example.GorkyQuest.Model.User;
+package com.example.GorkyQuest.Auntification.Repository;
+import com.example.GorkyQuest.Auntification.Model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

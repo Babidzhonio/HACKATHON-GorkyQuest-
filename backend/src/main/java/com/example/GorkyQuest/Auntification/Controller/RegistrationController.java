@@ -1,11 +1,10 @@
-package com.example.GorkyQuest.Controller;
+package com.example.GorkyQuest.Auntification.Controller;
 
 import com.example.GorkyQuest.Exception.UserRegistrationException;
-import com.example.GorkyQuest.Model.User;
-import com.example.GorkyQuest.Service.RegistrationService;
+import com.example.GorkyQuest.Auntification.Model.User;
+import com.example.GorkyQuest.Auntification.Service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

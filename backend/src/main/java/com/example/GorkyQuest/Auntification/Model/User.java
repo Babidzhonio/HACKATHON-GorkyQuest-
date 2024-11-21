@@ -1,4 +1,4 @@
-package com.example.GorkyQuest.Model;
+package com.example.GorkyQuest.Auntification.Model;
 
 
 import jakarta.persistence.*;
